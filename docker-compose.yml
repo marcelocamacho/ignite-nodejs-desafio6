@@ -1,0 +1,37 @@
+version: "3.7"
+
+services:
+  db_ignite_desafio_6:
+    image: postgres
+    container_name: db_ignite_desafio_6
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=fin_api
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: fin_api
+    links:
+      - db_ignite_desafio_6
+    depends_on:
+      - db_ignite_desafio_6
+    ports:
+      - 3333:3333
+      - 9229:9229
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules/bcrypt/
+    environment:
+      DATABASE_URL: postgres://postgres:docker@db_ignite_desafio_6:5432/fin_api
+
+volumes:
+  pgdata:
+    driver: local
+# docker-compose up --force-recreate -d
+# docker logs fin_api -f
