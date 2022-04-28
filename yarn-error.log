@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add ts-jest -D
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js remove jest
 
 PATH: 
   C:\Python310\Scripts\;C:\Python310\;C:\Program Files\Eclipse Foundation\jdk-11.0.12.7-hotspot\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PuTTY\;C:\Program Files\Git\cmd;C:\Program Files\MATLAB\R2016a\runtime\win64;C:\Program Files\MATLAB\R2016a\bin;C:\Program Files\MATLAB\R2016a\polyspace\bin;C:\Program Files\MiKTeX 2.9\miktex\bin\x64\;C:\Users\asus\Anaconda3;C:\ProgramData\chocolatey\bin;C:\Program Files (x86)\Yarn\bin\;C:\apache-maven-3.8.2\bin\;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Users\asus\AppData\Local\Microsoft\WindowsApps;C:\Users\asus\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\asus\Anaconda3\condabin;C:\Users\asus\Anaconda3;C:\wamp\bin\mariadb\mariadb10.4.10\bin;C:\wamp\bin\apache\apache2.4.41\bin;C:\Users\asus\AppData\Local\Yarn\bin;C:\Users\asus\AppData\Roaming\npm;C:\curl-7.82.0_4\bin;
@@ -14,8 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 2606:4700::6810:1823:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1161:16)
+  Error: EPERM: operation not permitted, unlink 'C:\desenvolvimento\ignite-nodejs-desafio6\node_modules\.bin\ts-node-dev'
 
 npm manifest: 
   {
@@ -34,7 +33,6 @@ npm manifest:
       "cors": "^2.8.5",
       "express": "^4.17.1",
       "express-async-errors": "^3.1.1",
-      "jest": "^28.0.0",
       "jsonwebtoken": "^8.5.1",
       "pg": "^8.5.1",
       "reflect-metadata": "^0.1.13",
