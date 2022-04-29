@@ -13,7 +13,13 @@ let createUserUseCase: CreateUserUseCase;
 let balanceUseCase: GetBalanceUseCase;
 let createStatement: CreateStatementUseCase;
 
-describe("Get balance", ()=>{
+enum OperationType {
+  DEPOSIT = 'deposit',
+  WITHDRAW = 'withdraw',
+}
+
+
+describe("Test balance", ()=>{
 
     beforeEach(()=>{
         userRepositoryInMemory = new InMemoryUsersRepository();
@@ -42,23 +48,83 @@ describe("Get balance", ()=>{
         expect(result).toHaveProperty("statement")
         expect(result.statement).toBeNull;
         expect(result.balance).toBe(0);
-
-
-                
-        await createStatement.execute({
-            user_id: user.id,
-            type: DEPOSIT,
-            amount: 100,
-            description: "deposit",
-        })
-
-
-        const result1 = await balanceUseCase.execute({user_id:user.id})
-        expect(result1.statement.length).toBe(1);
-        expect(result1.balance).toBe(100);
-        
-
-
-        
     })
+
+    it("should be able to do deposit", async ()=>{
+      const newUser:ICreateUserDTO = {
+          name: "Marcelo",
+          email: "marcelocamacho.ufpa@gmail.com",
+          password: "1234"
+      };
+
+      const user = await createUserUseCase.execute(newUser);
+      const {token} = await autenticateUseCase.execute({
+          email: newUser.email,
+          password: newUser.password
+      });
+
+      const result = await balanceUseCase.execute({user_id:user.id})
+
+      expect(result).toHaveProperty("statement")
+      expect(result.statement).toBeNull;
+      expect(result.balance).toBe(0);
+
+
+
+      await createStatement.execute({
+          user_id: user.id,
+          type: OperationType.DEPOSIT,
+          amount: 100,
+          description: "deposit",
+      })
+
+
+      const result1 = await balanceUseCase.execute({user_id:user.id})
+      expect(result1.statement.length).toBe(1);
+      expect(result1.balance).toBe(100);
+
+  })
+
+
+  it("should be able to do withdraw", async ()=>{
+    const newUser:ICreateUserDTO = {
+        name: "Marcelo",
+        email: "marcelocamacho.ufpa@gmail.com",
+        password: "1234"
+    };
+
+    const user = await createUserUseCase.execute(newUser);
+    const {token} = await autenticateUseCase.execute({
+        email: newUser.email,
+        password: newUser.password
+    });
+
+    const result = await balanceUseCase.execute({user_id:user.id})
+
+    expect(result).toHaveProperty("statement")
+    expect(result.statement).toBeNull;
+    expect(result.balance).toBe(0);
+
+
+
+    await createStatement.execute({
+        user_id: user.id,
+        type: OperationType.DEPOSIT,
+        amount: 100,
+        description: "deposit",
+    })
+
+    await createStatement.execute({
+      user_id: user.id,
+      type: OperationType.WITHDRAW,
+      amount: 50,
+      description: "deposit",
+  })
+
+    const result1 = await balanceUseCase.execute({user_id:user.id})
+    expect(result1.statement.length).toBe(2);
+    expect(result1.balance).toBe(50);
+
+})
+
 })
