@@ -7,9 +7,8 @@ export default async (host: string): Promise<Connection> => {
 
   return createConnection(
     Object.assign(defaultOptions, {
-      host: host || "db_ignite_desafio_6",
+      host: "db_ignite_desafio_6",
       database: "fin_api"
     })
   );
 };
-

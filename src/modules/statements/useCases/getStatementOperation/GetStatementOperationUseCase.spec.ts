@@ -63,7 +63,6 @@ describe(" Test statement", () => {
      statement_id: id
     })
 
-
     expect(result.id).toBe(id);
     expect(result.amount).toBe(50);
     expect(result.type).toBe('withdraw');
